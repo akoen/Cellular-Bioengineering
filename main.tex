@@ -57,22 +57,65 @@
     \item 
     \item \textit{Calculate the decay length, $\lambda$ of the BMP4 concentration gradient}
     
-    \begin{align}
+    \begin{align*}
         \lambda &= \sqrt{\frac{D}{k}} \\
         &= \sqrt{\frac{\SI{1.2}{\micro\m^2\per\s}}{\SI{5.4e-5}{\per\s}}} \\
         &= \SI{149}{\micro\m} \\
-    \end{align}
-    \items
+    \end{align*}
+    \item Dynamics of BMP4:
+    
+    \begin{align*}
+        L &= L_0 e^{\frac{-x}{\lambda}} \\
+        \frac{\partial L}{\partial x} &= \frac{-L_0}{\lambda}e^{\frac{-x}{\lambda}} \\
+        \frac{\partial ^2L}{\partial x^2} &= \frac{DL_0}{\lambda^2}e^{\frac{-x}{\lambda}}
+    \end{align*}
+    
+    Given $\frac{\partial L }{\partial t} = D\frac{\partial^2 L}{\partial x^2}-kL+\nu,$
+    
+    \begin{align*}
+        \frac{\partial L}{\partial t} &= \frac{DL_0}{\lambda^2}e^{\frac{-x}{\lambda}}-L_0e^{\frac{-x}{\lambda}} + \nu \\
+        &= L_0e^{\frac{-x}{\lambda}}\left(\frac{D}{\lambda^2} -1 \right) + \nu
+    \end{align*}{}
+    
+    Dynamics of BMPR2:
+
+    $$ \frac{dR}{dt} = \alpha L-k_r R $$
+        
+    and given $L = L_0 e^{\frac{-x}{\lambda}}$,
+    
+         $$ \frac{dR}{dt} = \alpha L_0 e^{\frac{-x}{\lambda}} L-k_r R $$
+         
+    
+
     \item 
+        \begin{align}
+         \frac{\partial L}{\partial t} &= L_0e^{\frac{-x}{\lambda}}\left(\frac{D}{\lambda^2} -1 \right) + \nu \\
+         \frac{\partial L}{\partial t} &=0 \\
+        \end{align} 
+        for steady state 
+        \begin{align}
+            \nu &=L_0e^{\frac{-x}{\lambda}}\left(1-\frac{D}{\lamda^2}\right) \\
+            \lambda&=\SI{149}{\micro\m} \\ L_0=
+        \end{align}
+        
+        Steady state solution for BMPR2:
+        
+        \begin{align*}
+            0 &= \alpha L_0 e^{\frac{-x}{\lambda}} L-k_r R \\
+            &=\SI{5e-3}{\n\g\per\s\per\micro\m}e^{\frac{-x}{\SI{149}{\micro\m}}} - \SI{10^-3}{\per\s}R
+
+        \end{align*}
+        
+        
     \item
     \item 
     \item To increase the size of the BRA+ region, one could increase the temperature.
     
     The approximate change in the diffusion coefficient as a result of an increase in temperature is given by the Stokes-Einstein equation:
     
-    \begin{align}
+    \begin{align*}
         \frac{D_{T_1}}{D_{T_2}}=\frac{T_1}{T_2} \frac{\mu_{T_1}}{\mu_{T_2}}
-    \end{align}
+    \end{align*}
     \item 
 \end{enumerate}
 
