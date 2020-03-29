@@ -77,26 +77,27 @@
         &= L_0e^{\frac{-x}{\lambda}}\left(\frac{D}{\lambda^2} -k \right) + \nu
     \end{align*}
     
-    Dynamics of BMPR2:
+    \textbf{Dynamics of BMPR2:}
 
-    $$ \frac{dR}{dt} = \alpha L-k_r R $$
-        
-    and given $L = L_0 e^{\frac{-x}{\lambda}}$,
-    
-    $$ \frac{dR}{dt} = \alpha L_0 e^{\frac{-x}{\lambda}} L-k_r R $$
+    \begin{align*}
+    \frac{dR}{dt} &= \alpha L-k_R R \\
+      \intertext{and given}
+      L &= L_0 e^{\frac{-x}{\lambda}} \\
+    \frac{dR}{dt} &= \alpha L_0 e^{\frac{-x}{\lambda}} L-k_R R \\
+    \end{align*}
 
   \item \textit{Find solutions for ligand and receptor equations in steady state.}
 
       $L_0=\SI{2}{\nano\g\per\micro\m}$
 
-      $\alpha = \SI{5e-3}{\nano\g\per\s\micro\m}$
+      $\alpha = \SI{5e-3}{\nano\g\per\s\per\micro\m}$
 
       $k_R= \SI{10e-3}{\per\s}$
 
 
       \textbf{Solution for ligand equation in steady-state:}
 
-      In steady state, $\frac{\partial L}{\partial t}$ and $\frac{\partial^2 L}{\partial L^2} = 0$  
+      In steady state, $\frac{\partial L}{\partial t}$ and $\frac{\partial^2 L}{\partial x^2} = 0$  
 
       \begin{align*}
         \frac{\partial L }{\partial t} &= D\frac{\partial^2 L}{\partial x^2}-kL+\nu \\
@@ -104,11 +105,27 @@
         \nu &= kL \\
         &= k L_0e^{\frac{-x}{\lambda}} \\
           \intertext{To determine the source required at the end of the tube:}
-        \nu &= \SI{5.4e-5}{\per\s} \cdot\SI{2}{\nano\g\per\micro\m}
+        \nu &= \SI{5.4e-5}{\per\s} \cdot\SI{2}{\nano\g\per\micro\m} \\
+              &= \SI{1.08e-4}{\nano\g\per\s\per\micro\m}
       \end{align*}
 
+      \textbf{Solution for receptor equation in steady state:}
+
+      \begin{align*}
+        \frac{dR}{dt} &= \alpha L_0 e^{\frac{-x}{\lambda}} L-k_R R \\
+        0 &= \alpha L_0 e^{\frac{-x}{\lambda}} L-k_R R \\
+        R &= \frac{\alpha}{k_R} L_0e^{\frac{-x}{\lambda}} \\
+        \intertext{at the end of the tube ($x=0$):}
+        R &= \frac{\alpha}{k_R}L_0 \\
+                      &= \frac{\SI{5e-3}{\nano\gram\per\s\per\micro\m}}{\SI{10e-3}{\per\s}} \SI{2}{\nano\gram\per\micro\m} \\
+      \end{align*}
         
-    \item
+    \item \textit{Considering the association constant $K_a$, calculate the concentration of the ligand-receptor complex in steady state at the distance from the source $x=\lambda$:}
+
+      \begin{align*}
+        K_a &= \frac{K_{on}}{K_{off}} \\
+        [RL] &= K_a[R][L] 
+      \end{align*}
     \item 
     \item 
     \item 
