@@ -97,16 +97,13 @@
 
       \textbf{Solution for ligand equation in steady-state:}
 
-      In steady state, $\frac{\partial L}{\partial t}$ and $\frac{\partial^2 L}{\partial x^2} = 0$  
+      In steady state, $\frac{\partial L}{\partial t} = 0$  
 
       \begin{align*}
-        \frac{\partial L }{\partial t} &= D\frac{\partial^2 L}{\partial x^2}-kL+\nu \\
-        0 &=-kL + \nu \\
-        \nu &= kL \\
-        &= k L_0e^{\frac{-x}{\lambda}} \\
-          \intertext{To determine the source required at the end of the tube:}
-        \nu &= \SI{5.4e-5}{\per\s} \cdot\SI{2}{\nano\g\per\micro\m} \\
-              &= \SI{1.08e-4}{\nano\g\per\s\per\micro\m}
+        0 &= L_0e^{\frac{-x}{\lambda}}\left(\frac{D}{\lambda^2} -k \right) + \nu \\
+        \nu &= L_0e^{\frac{-x}{\lambda}}\left(k - \frac{D}{\lambda^2} \right) + \nu \\
+          &= \SI{2}{\nano\g\per\micro\m}e^{\frac{-x}{149}} \left (\SI{5.4e-5}{\per\s} - \frac{\SI{1.2}{\micro\m^2\per\s}}{(\SI{149}{\micro\m})^2} \right ) \\
+          \nu &= 0
       \end{align*}
 
       \textbf{Solution for receptor equation in steady state:}
