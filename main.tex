@@ -10,11 +10,13 @@
 \titleformat{\subsection}[runin]{\normalfont\scshape}{\thesection}{1em}{}
 \titlespacing{\section}{0pt}{15pt}{1em}[]
 
-\usepackage{hyperref}
 \usepackage[document]{ragged2e}
 
 \usepackage{siunitx}
 \usepackage{amsmath}
+
+\usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
+\addbibresource{ref.bib}
 
 \usepackage{fancyhdr} % Custom headers and footers
 \pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
@@ -53,7 +55,9 @@
 \onehalfspacing
 
 \begin{enumerate}
-    \item 
+    \item \textit{Design of the 1-dimensional cell culture system. Explain appropriate size and materials you will use, and provide a diagram of the set up.}
+
+      Stem cell cultures are delicate, and depend on external support for cell survival and to allow for self-renewal. The 1-dimensional cell culture used in this project will be composed of a polycaprolactone outer structure, which has been shown to act effectively as a bioinert scaffold \parencite{bertucci2018biomaterial}. While it would be ideal to coat the scaffold with a full extracellular matrix, this can be delicate. Instead, the inner wall of the tube will be coated with fibronectin to support cell attachment.
     \item 
     \item \textit{Calculate the decay length, $\lambda$ of the BMP4 concentration gradient}
     
@@ -62,22 +66,23 @@
         &= \sqrt{\frac{\SI{1.2}{\micro\m^2\per\s}}{\SI{5.4e-5}{\per\s}}} \\
         &= \SI{149}{\micro\m} \\
     \end{align*}
-    \item Dynamics of BMP4:
+  \item Write differential equations for the dynamics of the BMP4 concentration and BMPR2 concentration.
+
+    \textbf{Dynamics of BMP4:}
     
     \begin{align*}
         L &= L_0 e^{\frac{-x}{\lambda}} \\
+      \intertext{This shows that the ligand concentration decreases exponentially along the tube. Now, taking the second derivative of $L$ with respect to $x$:}
         \frac{\partial L}{\partial x} &= \frac{-L_0}{\lambda}e^{\frac{-x}{\lambda}} \\
         \frac{\partial ^2L}{\partial x^2} &= \frac{L_0}{\lambda^2}e^{\frac{-x}{\lambda}}
-    \end{align*}
-    
-    Given $\frac{\partial L }{\partial t} = D\frac{\partial^2 L}{\partial x^2}-kL+\nu,$
-    
-    \begin{align*}
+                                            \intertext{Given $\frac{\partial L }{\partial t} = D\frac{\partial^2 L}{\partial x^2}-kL+\nu$ (Fick's second law with a sink and a source):}
         \frac{\partial L}{\partial t} &= \frac{DL_0}{\lambda^2}e^{\frac{-x}{\lambda}}-kL_0e^{\frac{-x}{\lambda}} + \nu \\
         &= L_0e^{\frac{-x}{\lambda}}\left(\frac{D}{\lambda^2} -k \right) + \nu
     \end{align*}
     
     \textbf{Dynamics of BMPR2:}
+
+    It is know that $R$ is produced linearly proportional to [BMP4] with proportionality constant $\alpha$ and degraded with rate constant $K_R$.
 
     \begin{align*}
     \frac{dR}{dt} &= \alpha L-k_R R \\
@@ -90,7 +95,7 @@
 
       $L_0=\SI{2}{\nano\g\per\micro\m}$
 
-      $\alpha = \SI{5e-3}{\nano\g\per\s\per\micro\m}$
+      $\alpha = \SI{5e-3}{\per\s}$
 
       $k_R= \SI{10e-3}{\per\s}$
 
@@ -114,7 +119,8 @@
         R &= \frac{\alpha}{k_R} L_0e^{\frac{-x}{\lambda}} \\
         \intertext{at the end of the tube ($x=0$):}
         R &= \frac{\alpha}{k_R}L_0 \\
-                      &= \frac{\SI{5e-3}{\nano\gram\per\s\per\micro\m}}{\SI{10e-3}{\per\s}} \SI{2}{\nano\gram\per\micro\m} \\
+                      &= \frac{\SI{5e-3}{\per\s}}{\SI{10e-3}{\per\s}} \SI{2}{\nano\gram\per\micro\m} \\
+        &= \SI{1}{\nano\g\per\micro\m}
       \end{align*}
         
     \item \textit{Considering the association constant $K_a$, calculate the concentration of the ligand-receptor complex in steady state at the distance from the source $x=\lambda$:}
@@ -125,18 +131,32 @@
         \intertext{$L$ at $x=\lambda$:}
         L &= \frac{L_0}{e} \\ 
             &= \frac{\SI{2}{\nano\g\per\micro\m}}{e} \\
-            &= \SI{0.74}{\nano\g\per\micro\m}
+            &= \SI{0.74}{\nano\g\per\micro\m} \\
+        \intertext{$R$ at $x=\lambda$:}
+        R &= \frac{\alpha L}{k_R} \\
+            &= \frac{\SI{5e-3}{\per\s}\cdot \SI{0.74}{\nano\g\per\micro\m}}{\SI{10e-3}{\per\s}} \quad \text{(from above)} \\
+            &= \SI{0.37}{\nano\g\per\micro\m}
+              \intertext{It follows that:}
+              [RL] &= K_a\cdot\SI{0.74}{\nano\g\per\micro\m}\cdot\SI{0.37}{\nano\g\per\micro\m} \\
+            &= K_a \cdot\SI{0.27}{\nano\g^2\per\micro\m^2}
       \end{align*}
     \item 
-    \item 
-    \item 
-\end{enumerate}
+    \item \textit{Discuss how you would modify the size of the BRA+ region.}
 
 
-\end{document}
+     The size of the BRA+ region is given by the decay length $\lambda$. To increase the size of the BRA+ region, one must increase lambda.
+      
+    \item \textit{Discuss how therapeutics can benefit from a precise control of differentiation patterns.}
 
-\implies
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-engine: xetex
-%%% End:
+      Therapeutics can benefit from precise control of differentiation patterns because such control would allow them to genetically engineer tissues and organs with specific cell types in a predetermined configuration.
+    \end{enumerate}
+
+    % \printbibliography
+
+  \end{document}
+
+  \implies
+  %%% Local Variables:
+  %%% mode: latex
+  %%% TeX-engine: xetex
+  %%% End:
