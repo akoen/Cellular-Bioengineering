@@ -1,0 +1,8 @@
+BMP4 = false
+BMPR2 = BMP4
+C_threshold = (BMP4 && BMPR2)
+TBXT = C_threshold
+Brachyury_expression = TBXT
+Differentiation = Brachyury_expression
+SOX2 = !C_threshold
+Activation_of_pluripotency_factors = SOX2
