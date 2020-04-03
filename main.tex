@@ -15,6 +15,8 @@
 \usepackage{siunitx}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{placeins}
 
 \usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
 \addbibresource{ref.bib}
@@ -60,8 +62,14 @@
 
   Since the average mammalian cell is \SI{10}{\micro\m} in diameter, the tube will be \SI{10}{\milli\m} long to support one thousand cells in a row.
 
-  Stem cell cultures are delicate, and depend on external support for cell survival and to allow for self-renewal. The 1-dimensional cell culture used in this project will be composed of a polycaprolactone outer structure, which has been shown to act effectively as a bioinert scaffold \parencite{bertucci2018biomaterial}. While it would be ideal to coat the scaffold with a full extracellular matrix, this can be delicate. Instead, the inner wall of the tube will be coated with fibronectin to support cell attachment.
-\item  
+  Stem cell cultures are delicate, and depend on external support for cell survival and to allow for self-renewal. The 1-dimensional cell culture used in this project will be composed of a polycaprolactone outer structure, which has been shown to act effectively as a bioinert scaffold \parencite{bertucci2018biomaterial}. While it would be ideal to coat the scaffold with a complete extracellular matrix to promote cell attachment, the inner wall will be coated with fibronectin instead for simplicity and robustness.
+
+  The tube will be maintained at a temperature of \SI{37}{\celsius} by controlling the ambient temperature around the tube. Furthermore, the tube will be filled with human platelet lysate to provide the cells with the ideal nutrients and pH they need to survive.
+
+\item  \textit{Explain how you will provide BMP4 activation in just one edge of the tube.}
+
+BMP4 activation will be provided in just one edge of the tube by pumping the ligand into the tube through a one-way valve. {\color{red}(expand)}
+  
 \item \textit{Calculate the decay length, $\lambda$ of the BMP4 concentration gradient}
   
   \begin{align*}
@@ -85,7 +93,7 @@
   
   \textbf{Dynamics of BMPR2:}
 
-  It is know that $R$ is produced linearly proportional to [BMP4] with proportionality constant $\alpha$ and degraded with rate constant $K_R$.
+  It is known that $R$ is produced linearly proportional to [BMP4] with proportionality constant $\alpha$ and degraded with rate constant $K_R$.
 
   \begin{align*}
     \frac{dR}{dt} &= \alpha L-k_R R \\
@@ -109,13 +117,13 @@
 
   \begin{align*}
     0 &= L_0e^{\frac{-x}{\lambda}}\left(\frac{D}{\lambda^2} -k \right) + \nu \\
-      &= L_0e^{\frac{-x}{\lambda}}\left(k - \frac{D}{\lambda^2} \right) + \nu \\
+    \nu &= L_0e^{\frac{-x}{\lambda}}\left(k - \frac{D}{\lambda^2} \right) \\
     \nu &= \SI{2}{\nano\g\per\micro\m}e^{\frac{-x}{149}} \left (\SI{5.4e-5}{\per\s} - \frac{\SI{1.2}{\micro\m^2\per\s}}{(\SI{149}{\micro\m})^2} \right ) \\
     \nu &= 0 \\
     \intertext{Additionally, since $k - \frac{D}{\lambda^2}=0$ it can be inferred that:}
     \frac{\partial L}{\partial t} &= \nu \\
-    \intertext{and}
-    \int \frac{\partial L}{\partial t}~dt&=\int \nu~dt \\ 
+    \intertext{and if the source is held constant:}
+    \int \frac{\partial L}{\partial t}~dt&=\nu \int dt \\ 
     \Delta L &= \nu \Delta t
   \end{align*}
 
@@ -149,29 +157,32 @@
         &= \SI{0.37}{\nano\g\per\micro\m}
           \intertext{It follows that:}
           [RL] &= K_a\cdot\SI{0.74}{\nano\g\per\micro\m}\cdot\SI{0.37}{\nano\g\per\micro\m} \\
-        &= K_a \cdot\SI{0.27}{\nano\g^2\per\micro\m^2}
+        &= \SI{0.27}{\nano\g^2\per\micro\m^2}\cdot K_a
   \end{align*}
+
+  The concentration of the ligand-receptor complex $RL$--- subsequently denoted $C$---at $x=\lambda$ is therefore dependant on the association constant $K_a$.
   \item \textit{Design a network motif that can satisy the BRA+/SOX2 pattern for different concentration of the ligand-receptor complex. Provide a sketch of the network, and explain the underlying logic. In a Boolean logic approach, provide a simulation showing the time series of the Boolean dynamics.}
 
-    BRA and SOX2 are both transcription factors which play a key role in the differentiation and self-renewal of neural stem cells respectively.
-
     \textbf{SOX2:}
-    SOX2 plays a key role in maintaining the pluripotency of undifferentiated neural stem cells. Its principal function is to regulate the expression of other transcription factors, including Oct4, which is critically important in the self-renewal of stem cells \parencite{chambers2009transcriptional}.
+    SOX2 is a transcription factor that plays a key role in maintaining the pluripotency of undifferentiated neural stem cells. Its principal function is to regulate the expression of other transcription factors, including Oct4, which is critically important in the self-renewal of stem cells \parencite{chambers2009transcriptional}.
 
-    \textbf{BRA:} Brachyury, on the other hand, is a protein responsible for cellular differentiation. Since BRA is expressed when a sufficient concentration of BMP4 binds with the BMPR2 receptor, it is expected that these cells will differentiate while those exposed to a lower BMP4 concentration will maintain self-renewal.
+    \textbf{BRA:} Brachyury, on the other hand, is another transcription factor coded by the gene TBXT that, when expressed, activates several genes important for cellular differentiation. Since BRA is expressed when a sufficient concentration of BMP4 binds with the BMPR2 receptor, it is expected that these cells will differentiate while those exposed to a lower BMP4 concentration will maintain pluripotency.
 
-    \begin{figure}[htpb]
+    \FloatBarrier
+    \begin{figure}[h]
       \centering
       \includegraphics[width=0.6\textwidth]{motif}
       \caption{Network motif satisfying the pattern of BRA+/SOX2 interaction for different concentrations of the ligand-receptor complex.}
       \label{fig:motif}
     \end{figure} 
+    \FloatBarrier
 
-    In the network motif displayed in \ref{fig:motif}, the concentration of the ligand-receptor complex $C$ is positively regulated by both the concentrations of BMP4 and BMPR2---which is itself regulated by the concentration of BMP4. When the concentration of the ligand-receptor complex exceeds the threshold value $K$ (at $x=\lambda$), expression of the TBXT gene turned on, modelled by the logic approximation $f(C)=\beta \theta (C > K)$, where $\beta$ is the maximal transcription rate and $\theta$ is either 0 or 1 depending on the result of the logic expression in parenthesis. When expressed, TBXT produces the brachyury transcription factor which in turns regulated other genes and eventually leads to cellular differentiation.
+    In the network motif displayed in Figure \ref{fig:motif}, the concentration of the ligand-receptor complex $C$ is positively regulated by both the concentrations of BMP4 and BMPR2---which is itself regulated by the concentration of BMP4. When the concentration of the ligand-receptor complex exceeds the threshold value $K$ (at $x=\lambda$), expression of the TBXT gene turned on, modelled by the logic approximation $f(C)=\beta \theta (C > K)$, where $\beta$ is the maximal transcription rate and $\theta$ is either 0 or 1 depending on the result of the logic expression in parenthesis. When expressed, TBXT produces the brachyury transcription factor which in turns regulated other genes and eventually leads to cellular differentiation.
 
     Conversely, when the concentration of the ligand-receptor complex is less than the threshold value $K$, the cells remain SOX2 positive, and pluripotency is maintained.
 
-    \begin{figure}[htpb]
+    \FloatBarrier
+    \begin{figure}[h]
       \centering
       \includegraphics[width=0.8\textwidth]{bool1}
       \includegraphics[width=0.8\textwidth]{bool2}
@@ -179,16 +190,21 @@
       \caption{Simulation of the given network motif using BooleSim. The time series shows the response of the above nodes to a change in BMP4 concentration.}
       \label{fig:bool1}
     \end{figure}
+    \FloatBarrier
 
-\item
+\item \textit{Discuss how you would build this network motif experimentally, which technology you would apply and why.}
+
+
+  
 \item \textit{Discuss how you would modify the size of the BRA+ region.}
 
+  Note that the size of the BRA+ region is dependant  on two factors: the value of $\lambda$ and the value of $K_a$. At $x=\lambda$, the concentration of $C$ will always be the threshold value $\SI{0.27}{\nano\g^2\per\micro\m^2}\cdot K_a$, assuming $L_0$ is fixed. Therefore, by increasing or decreasing $\lambda$, the size of the BRA+ region will increase or decrease accordingly.
 
-  The size of the BRA+ region is given by the decay length $\lambda$. To increase the size of the BRA+ region, one must increase lambda.
+  $\lambda$ itself is dependant on two factors: the diffusion coefficient $D$ and the effective degradation rate $k$. If $D$ were to be increased, say by increasing the temperature, $\lambda$ would also increase. This is impractical, however, since the cells depend on a constant temperature of \SI{37}{\celsius} for survival. Therefore, one must decrease $k$ to increase $\lambda$.
   
 \item \textit{Discuss how therapeutics can benefit from a precise control of differentiation patterns.}
 
-  Therapeutics can benefit from precise control of differentiation patterns because such control would allow them to genetically engineer tissues and organs with specific cell types in a predetermined configuration.
+  Therapeutics can benefit from precise control of differentiation patterns because such control would allow them to genetically engineer tissues and organs with specific cell types in a predetermined configuration. Currently, there are few stem cell therapies on the market because of risk associated with controlling their differentiation. For example, in a recent case autologous hematopoietic stem cells were injected into the kidneys of a patients with renal failure resulted in tumour growth \parencite{marks2017clarifying}. While most such cases are a result of illegitimate treatment, the technology is not yet at the point where it is safe to perform these treatments in a clinical setting.
 \end{enumerate}
 
 % \printbibliography
